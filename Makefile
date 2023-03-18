@@ -1,10 +1,10 @@
 SHELL=/bin/bash
 VERSION=latest
 container_name=mawinter-web-py
-.PHONY: build
+.PHONY: build run
 build:
 	docker build -t $(container_name):$(VERSION) -f build/Dockerfile .
 
 run:
 	# for devcontainer
-	gunicorn flaskapp:app --config src/gunicorn.py 
+	cd src && gunicorn flaskapp:app --config gunicorn.py 
