@@ -1,52 +1,65 @@
 <!doctype html>
 <html lang="ja">
+<link rel="stylesheet" href="/static/css/style.css">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-</head>
+<div id="page">
 
-<body class="text-center">
-    <h1>mawinter-web</h1>
-    <p>{{ connectionMessage }}</p>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
 
-    <select name="categoryID_selector">
-        {% for cat_opt in cat_opts %}
-        <tr>
-            <option>{{ cat_opt }}</option>
-        </tr>
-        {% endfor %}
-    </select>
+    <body class="text-center">
+        <h1>mawinter-web</h1>
 
-    <form>
-        <input type="price_box" placeholder="price">
-    </form>
+        <p>
+            <select class="category_selector" name="category_selector">
+                {% for cat_opt in cat_opts %}
+                <tr>
+                    <option>{{ cat_opt }}</option>
+                </tr>
+                {% endfor %}
+            </select>
+        </p>
 
-    <form action="/" method="get">
-        <button type="submit">Post</button>
-    </form>
-    <p>{{ resultMessage }}</p>
-    <h3>今月の直近履歴</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>カテゴリ名</th>
-                <th>金額</th>
-                <th>日付</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for id, cat_name, price, date in recent_data %}
-            <tr>
-                <td>{{ id }}</td>
-                <td>{{ cat_name }}</td>
-                <td>{{ price }}</td>
-                <td>{{ date }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
+        <p>
+        <form>
+            <input class="pricebox" type="number" placeholder="price">
+        </form>
+        </p>
+
+        <p>
+        <form action="/" method="get">
+            <button class="sendbutton" type="submit">Post</button>
+        </form>
+        </p>
+
+        <p>{{ resultMessage }}</p>
+        <h3>今月の直近履歴</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>カテゴリ名</th>
+                    <th>金額</th>
+                    <th>日付</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, cat_name, price, date in recent_data %}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ cat_name }}</td>
+                    <td>{{ price }}</td>
+                    <td>{{ date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <p>{{ connectionMessage }}</p>
+    </body>
+
+</div>
 
 </html>
