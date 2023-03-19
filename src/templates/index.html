@@ -5,17 +5,38 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
-<!-- 文字の表示を真ん中に -->
 
 <body class="text-center">
     <h2>でっぷろーい</h2>
-    <!-- ボタンを押すと、/nextpageに飛ぶ -->
-
     <h1>mawinter-web</h1>
-    <form action="/post" method="post"><!-- データの送信先アドレスと送信する際に使用するHTTPメソッド -->
-        <button type="submit">Post</button><!-- 送信ボタン -->
+    <p>{{ connectionMessage }}</p>
+    <form action="/post" method="post">
+        <button type="submit">Post</button>
     </form>
-    <p>{{ message }}</p>
+    <p>{{ resultMessage }}</p>
+
+    <h3>今月の直近履歴</h3>
+    <table>
+        <colgroup span="4"></colgroup>
+        <tr>
+            <th>国</th>
+            <th>首都</th>
+            <th>人口</th>
+            <th>言語</th>
+        </tr>
+        <tr>
+            <td>アメリカ合衆国</td>
+            <td>ワシントン D.C.</td>
+            <td>3 億 9 百万人</td>
+            <td>英語</td>
+        </tr>
+        <tr>
+            <td>スウェーデン</td>
+            <td>ストックホルム</td>
+            <td>9 百万人</td>
+            <td>スウェーデン語</td>
+        </tr>
+    </table>
 </body>
 
 </html>
