@@ -29,25 +29,20 @@
     <p>{{ resultMessage }}</p>
     <h3>今月の直近履歴</h3>
     <table>
-        <colgroup span="4"></colgroup>
-        <tr>
-            <th>国</th>
-            <th>首都</th>
-            <th>人口</th>
-            <th>言語</th>
-        </tr>
-        <tr>
-            <td>アメリカ合衆国</td>
-            <td>ワシントン D.C.</td>
-            <td>3 億 9 百万人</td>
-            <td>英語</td>
-        </tr>
-        <tr>
-            <td>スウェーデン</td>
-            <td>ストックホルム</td>
-            <td>9 百万人</td>
-            <td>スウェーデン語</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>アルファベット</th>
+                <th>No.</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alphabet, no in data %}
+            <tr>
+                <td>{{ alphabet }}</td>
+                <td>{{ no }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </body>
 
