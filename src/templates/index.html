@@ -7,16 +7,15 @@
 </head>
 
 <body class="text-center">
-    <h2>でっぷろーい</h2>
     <h1>mawinter-web</h1>
     <p>{{ connectionMessage }}</p>
 
     <select name="categoryID_selector">
-        <option>選択肢のサンプル1</option>
-        <option>選択肢のサンプル2</option>
-        <option>選択肢のサンプル3</option>
-        <option>選択肢のサンプル4</option>
-        <option>選択肢のサンプル5</option>
+        {% for cat_opt in cat_opts %}
+        <tr>
+            <option>{{ cat_opt }}</option>
+        </tr>
+        {% endfor %}
     </select>
 
     <form>
@@ -31,15 +30,19 @@
     <table>
         <thead>
             <tr>
-                <th>アルファベット</th>
-                <th>No.</th>
+                <th>ID</th>
+                <th>カテゴリ名</th>
+                <th>金額</th>
+                <th>日付</th>
             </tr>
         </thead>
         <tbody>
-            {% for alphabet, no in data %}
+            {% for id, cat_name, price, date in recent_data %}
             <tr>
-                <td>{{ alphabet }}</td>
-                <td>{{ no }}</td>
+                <td>{{ id }}</td>
+                <td>{{ cat_name }}</td>
+                <td>{{ price }}</td>
+                <td>{{ date }}</td>
             </tr>
             {% endfor %}
         </tbody>
