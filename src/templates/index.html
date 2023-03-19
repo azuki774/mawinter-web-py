@@ -7,16 +7,15 @@
 </head>
 
 <body class="text-center">
-    <h2>でっぷろーい</h2>
     <h1>mawinter-web</h1>
     <p>{{ connectionMessage }}</p>
 
     <select name="categoryID_selector">
-        <option>選択肢のサンプル1</option>
-        <option>選択肢のサンプル2</option>
-        <option>選択肢のサンプル3</option>
-        <option>選択肢のサンプル4</option>
-        <option>選択肢のサンプル5</option>
+        {% for cat_opt in cat_opts %}
+        <tr>
+            <option>{{ cat_opt }}</option>
+        </tr>
+        {% endfor %}
     </select>
 
     <form>
@@ -29,25 +28,24 @@
     <p>{{ resultMessage }}</p>
     <h3>今月の直近履歴</h3>
     <table>
-        <colgroup span="4"></colgroup>
-        <tr>
-            <th>国</th>
-            <th>首都</th>
-            <th>人口</th>
-            <th>言語</th>
-        </tr>
-        <tr>
-            <td>アメリカ合衆国</td>
-            <td>ワシントン D.C.</td>
-            <td>3 億 9 百万人</td>
-            <td>英語</td>
-        </tr>
-        <tr>
-            <td>スウェーデン</td>
-            <td>ストックホルム</td>
-            <td>9 百万人</td>
-            <td>スウェーデン語</td>
-        </tr>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>カテゴリ名</th>
+                <th>金額</th>
+                <th>日付</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for id, cat_name, price, date in recent_data %}
+            <tr>
+                <td>{{ id }}</td>
+                <td>{{ cat_name }}</td>
+                <td>{{ price }}</td>
+                <td>{{ date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </body>
 
