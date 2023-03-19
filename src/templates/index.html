@@ -10,11 +10,23 @@
     <h2>でっぷろーい</h2>
     <h1>mawinter-web</h1>
     <p>{{ connectionMessage }}</p>
-    <form action="/post" method="post">
+
+    <select name="categoryID_selector">
+        <option>選択肢のサンプル1</option>
+        <option>選択肢のサンプル2</option>
+        <option>選択肢のサンプル3</option>
+        <option>選択肢のサンプル4</option>
+        <option>選択肢のサンプル5</option>
+    </select>
+
+    <form>
+        <input type="price_box" placeholder="price">
+    </form>
+
+    <form action="/" method="get">
         <button type="submit">Post</button>
     </form>
     <p>{{ resultMessage }}</p>
-
     <h3>今月の直近履歴</h3>
     <table>
         <colgroup span="4"></colgroup>
