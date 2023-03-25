@@ -47,7 +47,7 @@ def getRecent():
         )
         if response.status_code != 200:
             print(response.status_code)
-            return ids, cat_names, prices, dates
+            return [], [], [], []
 
         # ok pattern
         json_data = response.json()
@@ -58,6 +58,9 @@ def getRecent():
     # reshape
     print("recent fetch ok")
 
+    if json_data == None:
+        return [], [], [], []
+
     for jdata in json_data:
         ids.append(jdata["id"])
         cat_names.append(jdata["category_name"])
@@ -65,3 +68,32 @@ def getRecent():
         dates.append(jdata["datetime"])
 
     return ids, cat_names, prices, dates
+
+
+def post_record(category_id, price):
+    print("post record called")
+    url = BASE_URL + "/v2/record"
+    data = (
+        "{"
+        + '"category_id": {}, "from": "mawinter-web", "price": {}'.format(
+            category_id, price
+        )
+        + "}"
+    )
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(url, data=data, headers=headers)
+    try:
+        response = requests.post(
+            url, auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS)
+        )
+        if response.status_code != 201:
+            return 1
+
+        # ok pattern
+        json_data = response.json()
+    except Exception as e:
+        print(e)
+        return 1
+
+    print("post ok")
+    return 0
