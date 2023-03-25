@@ -83,7 +83,6 @@ def post_record(category_id, price):
     )
     print(data)
     headers = {"Content-Type": "application/json"}
-    response = requests.post(url, data=data, headers=headers)
     try:
         response = requests.post(
             url, auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS)
