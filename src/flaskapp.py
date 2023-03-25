@@ -6,10 +6,34 @@ app = Flask(__name__)
 # GET API VERSION
 ver_info_text = api.getVersion()
 
+cat_opts = [
+    "210 - 食費",
+    "230 - コンピュータリソース",
+    "231 - 通信費",
+    "240 - 生活用品",
+    "250 - 娯楽費",
+    "251 - 交友費",
+    "260 - 書籍・勉強",
+    "270 - 交通費",
+    "280 - 衣服等",
+    "220 - 電気代",
+    "221 - ガス代",
+    "222 - 水道代",
+    "300 - 保険・税金",
+    "400 - 医療・衛生",
+    "500 - 雑費",
+    "100 - 給与",
+    "101 - ボーナス",
+    "110 - 雑所得",
+    "600 - 家賃用貯金",
+    "601 - PC用貯金",
+    "700 - NISA入出金",
+    "701 - NISA変動",
+]
+
 
 @app.route("/", methods=["GET"])
 def index_get():
-    cat_opts = ["200 - 食費", "201 - 生活用品"]
     resultMessage = "入力してください"
     ids, cat_names, prices, dates = api.getRecent()
     return render_template(
