@@ -73,6 +73,7 @@ def getRecent():
 def post_record(category_id, price):
     print("post record called")
     url = BASE_URL + "/v2/record"
+    print("url = {}".format(url))
     data = (
         "{"
         + '"category_id": {}, "from": "mawinter-web", "price": {}'.format(
@@ -80,6 +81,7 @@ def post_record(category_id, price):
         )
         + "}"
     )
+    print(data)
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, data=data, headers=headers)
     try:
@@ -87,6 +89,7 @@ def post_record(category_id, price):
             url, auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS)
         )
         if response.status_code != 201:
+            print("unexpected code: {}".format(response.status_code))
             return 1
 
         # ok pattern
