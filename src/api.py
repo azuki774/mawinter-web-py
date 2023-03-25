@@ -85,7 +85,10 @@ def post_record(category_id, price):
     headers = {"Content-Type": "application/json"}
     try:
         response = requests.post(
-            url, auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS)
+            url,
+            auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS),
+            data=data,
+            headers=headers,
         )
         if response.status_code != 201:
             print("unexpected code: {}".format(response.status_code))
