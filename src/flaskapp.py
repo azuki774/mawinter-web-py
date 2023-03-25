@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import api
 
 app = Flask(__name__)
@@ -45,10 +45,13 @@ def index_get():
     )
 
 
-@app.route("/post", methods=["POST"])
+@app.route("/post", methods=["GET", "POST"])
 def index_post():
+    if request.method == "GET":
+        return redirect(url_for("index.html"))
+
     # post 処理
-    post_category_id, post_price = _extract_post_data()
+    post_category_id, post_price = _extract_post_data(request=request)
     if post_price != 0:
         ret = api.post_record(post_category_id, post_price)
 
@@ -57,15 +60,15 @@ def index_post():
     )
 
 
-def _extract_post_data():
+def _extract_post_data(request):
     post_category = request.form.getlist("category_selector")
 
     try:
         post_category_id = int(post_category[0][:3])
+        post_price = int(request.form.get("pricebox"))
     except Exception as e:
         print(e)
-        return "", 0
+        return 0, 0
 
-    post_price = request.form.get("pricebox")
     print("post_category_id = {}, post_price = {}".format(post_category_id, post_price))
     return post_category_id, post_price
