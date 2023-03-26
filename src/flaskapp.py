@@ -1,5 +1,19 @@
 from flask import Flask, render_template, request, redirect, url_for
 import api
+from pythonjsonlogger import jsonlogger
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+h = logging.StreamHandler()
+h.setLevel(logging.DEBUG)
+json_fmt = jsonlogger.JsonFormatter(
+    fmt="%(asctime)s %(levelname)s %(filename)s %(lineno)s %(message)s",
+    json_ensure_ascii=False,
+)
+h.setFormatter(json_fmt)
+logger.addHandler(h)
+
 
 app = Flask(__name__)
 
@@ -67,8 +81,10 @@ def _extract_post_data(request):
         post_category_id = int(post_category[0][:3])
         post_price = int(request.form.get("pricebox"))
     except Exception as e:
-        print(e)
+        logger.error(e)
         return 0, 0
 
-    print("post_category_id = {}, post_price = {}".format(post_category_id, post_price))
+    logger.info(
+        "post_category_id = {}, post_price = {}".format(post_category_id, post_price)
+    )
     return post_category_id, post_price
