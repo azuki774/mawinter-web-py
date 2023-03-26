@@ -2,6 +2,8 @@ import os
 import requests
 from requests.auth import HTTPBasicAuth
 import datetime
+from pythonjsonlogger import jsonlogger
+import logging
 
 t_delta = datetime.timedelta(hours=9)
 JST = datetime.timezone(t_delta, "JST")
@@ -10,6 +12,17 @@ now = datetime.datetime.now(JST)
 BASE_URL = str(os.getenv("BASE_URL", "http://192.168.1.21:8080"))
 BASIC_AUTH_USER = str(os.getenv("BASIC_AUTH_USER", ""))
 BASIC_AUTH_PASS = str(os.getenv("BASIC_AUTH_PASS", ""))
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+h = logging.StreamHandler()
+h.setLevel(logging.DEBUG)
+json_fmt = jsonlogger.JsonFormatter(
+    fmt="%(asctime)s %(levelname)s %(filename)s %(lineno)s %(message)s",
+    json_ensure_ascii=False,
+)
+h.setFormatter(json_fmt)
+logger.addHandler(h)
 
 
 def getVersion():
@@ -20,11 +33,11 @@ def getVersion():
         )
 
         if response.status_code != 200:
-            print(response.status_code)
+            logger.warn(response.status_code)
             return "有効でないステータスコード"
         json_data = response.json()
     except Exception as e:
-        print(e)
+        logger.error(e)
         return "接続エラー"
 
     return "API Version: {}, Revision: {}".format(
@@ -46,17 +59,17 @@ def getRecent():
             url, auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS)
         )
         if response.status_code != 200:
-            print(response.status_code)
+            logger.warn(response.status_code)
             return [], [], [], []
 
         # ok pattern
         json_data = response.json()
     except Exception as e:
-        print(e)
+        logger.error(e)
         return ids, cat_names, prices, dates
 
     # reshape
-    print("recent fetch ok")
+    logger.info("recent fetch ok")
 
     if json_data == None:
         return [], [], [], []
@@ -71,9 +84,9 @@ def getRecent():
 
 
 def post_record(category_id, price):
-    print("post record called")
+    logger.info("post record called")
     url = BASE_URL + "/v2/record"
-    print("url = {}".format(url))
+    logger.info("url = {}".format(url))
     data = (
         "{"
         + '"category_id": {}, "from": "mawinter-web", "price": {}'.format(
@@ -81,7 +94,7 @@ def post_record(category_id, price):
         )
         + "}"
     )
-    print(data)
+    logger.info(data)
     headers = {"Content-Type": "application/json"}
     try:
         response = requests.post(
@@ -97,8 +110,8 @@ def post_record(category_id, price):
         # ok pattern
         json_data = response.json()
     except Exception as e:
-        print(e)
+        logger.error(e)
         return 1
 
-    print("post ok")
+    logger.info("post ok")
     return 0
