@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<link rel="stylesheet" href="/static/css/style.css">
+
+<div id="page">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+
+            async function sample() {
+                try {
+                    const res = await axios.get('https://jsonplaceholder.typicode.com/todos/1');
+                    const items = JSON.parse(JSON.stringify(res.data));
+                    testpln.innerHTML = items['id']
+                    console.log(items)
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+
+        </script>
+    </head>
+
+    <body class="text-center">
+        <h1>mawinter-web report</h1>
+
+        <input type="button" value="ボタンを押す" onclick="sample()">
+        <div id="testpln"></div>
+
+</div>
+
+</html>

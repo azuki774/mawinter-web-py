@@ -59,6 +59,11 @@ def index_get():
     )
 
 
+@app.route("/report", methods=["GET"])
+def report_get():
+    return render_template("report.html")
+
+
 @app.route("/post", methods=["GET", "POST"])
 def index_post():
     if request.method == "GET":
