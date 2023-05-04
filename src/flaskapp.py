@@ -77,8 +77,14 @@ def index_post():
 
 @app.route("/summary", methods=["GET"])
 def summary_get():
-    income_data, a, b, c = _extract_summary_data(None)
-    return render_template("summary.html", summary_data=income_data)
+    income_data, outgoing_data, saving_data, invest_data = _extract_summary_data(None)
+    return render_template(
+        "summary.html",
+        income_data=income_data,
+        outgoing_data=outgoing_data,
+        saving_data=saving_data,
+        invest_data=invest_data,
+    )
 
 
 # _extract_post_data は request をもとに、record を POSTするための整形処理
@@ -112,5 +118,13 @@ def _extract_summary_data(request):
         cat_name = r["category_name"]
         price = r["price"]
         total = r["total"]
-        income_data.append([cat_id, cat_name, price, total])
+        if cat_id in [100, 101, 110]:
+            income_data.append([cat_id, cat_name, price, total])
+        elif cat_id in [600, 601]:
+            saving_data.append([cat_id, cat_name, price, total])
+        elif cat_id in [700, 701]:
+            invest_data.append([cat_id, cat_name, price, total])
+        else:
+            outgoing_data.append([cat_id, cat_name, price, total])
+
     return income_data, outgoing_data, saving_data, invest_data

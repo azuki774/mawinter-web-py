@@ -34,6 +34,16 @@
                 </tr>
             </thead>
             <tbody>
+                {% for cat_id, cat_name, prices, total in income_data %}
+                <tr>
+                    <td>{{ cat_id }}</td>
+                    <td>{{ cat_name }}</td>
+                    {%- for price in prices %}
+                    <td>{{ price }}</td>
+                    {%- endfor %}
+                    <td>{{ total }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
 
@@ -59,7 +69,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for cat_id, cat_name, prices, total in summary_data %}
+                {% for cat_id, cat_name, prices, total in outgoing_data %}
                 <tr>
                     <td>{{ cat_id }}</td>
                     <td>{{ cat_name }}</td>
@@ -95,6 +105,16 @@
                 </tr>
             </thead>
             <tbody>
+                {% for cat_id, cat_name, prices, total in saving_data %}
+                <tr>
+                    <td>{{ cat_id }}</td>
+                    <td>{{ cat_name }}</td>
+                    {%- for price in prices %}
+                    <td>{{ price }}</td>
+                    {%- endfor %}
+                    <td>{{ total }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
 
@@ -120,6 +140,16 @@
                 </tr>
             </thead>
             <tbody>
+                {% for cat_id, cat_name, prices, total in invest_data %}
+                <tr>
+                    <td>{{ cat_id }}</td>
+                    <td>{{ cat_name }}</td>
+                    {%- for price in prices %}
+                    <td>{{ price }}</td>
+                    {%- endfor %}
+                    <td>{{ total }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </body>
