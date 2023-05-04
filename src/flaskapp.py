@@ -74,6 +74,13 @@ def index_post():
     )
 
 
+@app.route("/summary", methods=["GET"])
+def summary_get():
+    return render_template(
+        "summary.html",
+    )
+
+
 def _extract_post_data(request):
     post_category = request.form.getlist("category_selector")
 

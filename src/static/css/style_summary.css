@@ -1,0 +1,93 @@
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #494949;
+    background: #f4f4f4;
+    width: 60%;
+    border-left: solid 5px #7db4e6;
+    border-bottom: solid 3px #d7d7d7;
+}
+
+h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #494949;
+    background: #f4f4f4;
+    width: 50%;
+    border-left: solid 5px #7db4e6;
+    border-bottom: solid 3px #d7d7d7;
+}
+
+.category_selector {
+    width: 50%;
+    font-size: 200%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pricebox {
+    width: 50%;
+    font-size: 200%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sendbutton {
+    color: #000;
+    background-color: #fff100;
+    border-bottom: 5px solid #ccc100;
+    width: 50%;
+    font-size: 200%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sendbutton:hover {
+    margin-top: 3px;
+    color: #000;
+    background: #fff20a;
+    border-bottom: 2px solid #ccc100;
+    width: 50%;
+    font-size: 200%;
+}
+
+.backbutton {
+    color: #000;
+    background-color: #fff100;
+    border-bottom: 5px solid #ccc100;
+    width: 50%;
+    font-size: 200%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.backbutton:hover {
+    margin-top: 3px;
+    color: #000;
+    background: #fff20a;
+    border-bottom: 2px solid #ccc100;
+    width: 50%;
+    font-size: 200%;
+}
+
+table th {
+    color: #494949;
+    background: #d7d7d7;
+}
+
+.summary_table {
+    table-layout: fixed;
+    width: 1200px;
+    font-size: 75%;
+}
+
+/* #page {
+    width: 800px;
+    margin: 0 auto;
+} */
