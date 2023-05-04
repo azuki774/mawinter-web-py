@@ -79,15 +79,26 @@ def index_post():
 def summary_get():
     fyyear = "2023"
     summary_json = api.get_summary(fyyear)
-    income_data, outgoing_data, saving_data, invest_data = _extract_summary_data(
+    income_data, outgoing_data, saving_data, invest_data = _separate_summary_data(
         summary_json
     )
+
+    (
+        income_data_sum,
+        outgoing_data_sum,
+        saving_data_sum,
+        invest_data_sum,
+        all_pure_sum,
+        all_sum,
+    ) = _sum_category(income_data, outgoing_data, saving_data, invest_data)
+    print(all_pure_sum)
     return render_template(
         "summary.html",
         income_data=income_data,
         outgoing_data=outgoing_data,
         saving_data=saving_data,
         invest_data=invest_data,
+        outgoing_data_sum=outgoing_data_sum
     )
 
 
@@ -108,7 +119,8 @@ def _extract_post_data(request):
     return post_category_id, post_price
 
 
-def _extract_summary_data(summary_json):
+# _separate_summary_data は APIからのレスポンスをカテゴリごとに分類する
+def _separate_summary_data(summary_json):
     income_data = []
     outgoing_data = []
     saving_data = []
@@ -129,3 +141,56 @@ def _extract_summary_data(summary_json):
             outgoing_data.append([cat_id, cat_name, price, total])
 
     return income_data, outgoing_data, saving_data, invest_data
+
+
+def _sum_category(income_data, outgoing_data, saving_data, invest_data):
+    # 集計用のカテゴリ各月合計の配列を返す
+
+    # output: [[4,5,6,7,8,9,10,11,12,1,2,3],all]
+    income_data_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]
+    outgoing_data_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]
+    saving_data_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]
+    invest_data_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]
+    all_pure_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]  # 純粋の額
+    all_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]  # 貯金等調整後の額
+
+    for r in income_data:
+        for i in range(12):
+            income_data_sum[0][i] += int(r[2][i])
+            all_pure_sum[0][i] += int(r[2][i])
+            all_sum[0][i] += int(r[2][i])
+        income_data_sum[1] += int(r[3])
+        all_pure_sum[1] += int(r[3])
+        all_sum[1] += int(r[3])
+
+    for r in outgoing_data:
+        for i in range(12):
+            outgoing_data_sum[0][i] += int(r[2][i])
+            all_pure_sum[0][i] += int(r[2][i])
+            all_sum[0][i] += int(r[2][i])
+        outgoing_data_sum[1] += int(r[3])
+        all_pure_sum[1] += int(r[3])
+        all_sum[1] += int(r[3])
+
+    for r in saving_data:
+        for i in range(12):
+            saving_data_sum[0][i] += int(r[2][i])
+            all_pure_sum[0][i] += int(r[2][i])
+        saving_data_sum[1] += int(r[3])
+        all_pure_sum[1] += int(r[3])
+
+    for r in invest_data:
+        for i in range(12):
+            invest_data_sum[0][i] += int(r[2][i])
+            all_pure_sum[0][i] += int(r[2][i])
+        invest_data_sum[1] += int(r[3])
+        all_pure_sum[1] += int(r[3])
+
+    return (
+        income_data_sum,
+        outgoing_data_sum,
+        saving_data_sum,
+        invest_data_sum,
+        all_pure_sum,
+        all_sum,
+    )

@@ -132,7 +132,6 @@ def get_summary(fyyear):
         logger.error(e)
         return None
 
-    print(response)
     summary_json = response.json()
     logger.info("get summary ok")
     return summary_json

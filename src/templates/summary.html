@@ -16,7 +16,7 @@
         <table class="summary_table" border="1">
             <thead>
                 <tr>
-                    <th>カテゴリID</th>
+                    <th>ID</th>
                     <th>カテゴリ名</th>
                     <th>4月</th>
                     <th>5月</th>
@@ -51,7 +51,7 @@
         <table class="summary_table" border="1">
             <thead>
                 <tr>
-                    <th>カテゴリID</th>
+                    <th>ID</th>
                     <th>カテゴリ名</th>
                     <th>4月</th>
                     <th>5月</th>
@@ -79,6 +79,18 @@
                     <td class="price_value_field">{{ total }}</td>
                 </tr>
                 {% endfor %}
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        （合計）
+                    </td>
+                    {%- for price in outgoing_data_sum[0] %}
+                    <td class="price_value_field">{{ price }}</td>
+                    {%- endfor %}
+                    <td class="price_value_field">{{ outgoing_data_sum[1] }}</td>
+                </tr>
             </tbody>
         </table>
         <hr>
@@ -87,7 +99,7 @@
         <table class="summary_table" border="1">
             <thead>
                 <tr>
-                    <th>カテゴリID</th>
+                    <th>ID</th>
                     <th>カテゴリ名</th>
                     <th>4月</th>
                     <th>5月</th>
@@ -122,7 +134,7 @@
         <table class="summary_table" border="1">
             <thead>
                 <tr>
-                    <th>カテゴリID</th>
+                    <th>ID</th>
                     <th>カテゴリ名</th>
                     <th>4月</th>
                     <th>5月</th>
