@@ -87,6 +87,10 @@ table th {
     font-size: 75%;
 }
 
+td.price_value_field {
+    text-align: right;
+}
+
 /* #page {
     width: 800px;
     margin: 0 auto;
