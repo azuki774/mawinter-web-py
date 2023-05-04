@@ -82,10 +82,26 @@ table th {
 }
 
 .summary_table {
-    table-layout: fixed;
-    width: 1200px;
+    /* table-layout: fixed; */
+    width: 1000px;
     font-size: 75%;
 }
+
+.summary_table tr td:nth-child(1) {
+    table-layout: fixed;
+    width: 3%
+}
+
+.summary_table tr td:nth-child(2) {
+    table-layout: fixed;
+    width: 15%
+}
+
+.summary_table tr td:nth-last-child(-n+13) {
+    table-layout: fixed;
+    width: 5%
+}
+
 
 td.price_value_field {
     text-align: right;
