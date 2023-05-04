@@ -98,7 +98,10 @@ def summary_get():
         outgoing_data=outgoing_data,
         saving_data=saving_data,
         invest_data=invest_data,
-        outgoing_data_sum=outgoing_data_sum
+        income_data_sum=income_data_sum,
+        outgoing_data_sum=outgoing_data_sum,
+        saving_data_sum=saving_data_sum,
+        invest_data_sum=invest_data_sum
     )
 
 

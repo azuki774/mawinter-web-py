@@ -44,6 +44,18 @@
                     <td class="price_value_field">{{ total }}</td>
                 </tr>
                 {% endfor %}
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        （合計）
+                    </td>
+                    {%- for price in income_data_sum[0] %}
+                    <td class="price_value_field">{{ price }}</td>
+                    {%- endfor %}
+                    <td class="price_value_field">{{ income_data_sum[1] }}</td>
+                </tr>
             </tbody>
         </table>
 
@@ -127,6 +139,18 @@
                     <td class="price_value_field">{{ total }}</td>
                 </tr>
                 {% endfor %}
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        （合計）
+                    </td>
+                    {%- for price in saving_data_sum[0] %}
+                    <td class="price_value_field">{{ price }}</td>
+                    {%- endfor %}
+                    <td class="price_value_field">{{ saving_data_sum[1] }}</td>
+                </tr>
             </tbody>
         </table>
 
@@ -162,6 +186,18 @@
                     <td class="price_value_field">{{ total }}</td>
                 </tr>
                 {% endfor %}
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        （合計）
+                    </td>
+                    {%- for price in invest_data_sum[0] %}
+                    <td class="price_value_field">{{ price }}</td>
+                    {%- endfor %}
+                    <td class="price_value_field">{{ invest_data_sum[1] }}</td>
+                </tr>
             </tbody>
         </table>
     </body>
