@@ -91,7 +91,7 @@ def summary_get():
         all_pure_sum,
         all_sum,
     ) = _sum_category(income_data, outgoing_data, saving_data, invest_data)
-    print(all_pure_sum)
+
     return render_template(
         "summary.html",
         income_data=income_data,
@@ -101,7 +101,9 @@ def summary_get():
         income_data_sum=income_data_sum,
         outgoing_data_sum=outgoing_data_sum,
         saving_data_sum=saving_data_sum,
-        invest_data_sum=invest_data_sum
+        invest_data_sum=invest_data_sum,
+        all_pure_sum=all_pure_sum,
+        all_sum=all_sum,
     )
 
 
@@ -160,34 +162,34 @@ def _sum_category(income_data, outgoing_data, saving_data, invest_data):
     for r in income_data:
         for i in range(12):
             income_data_sum[0][i] += int(r[2][i])
-            all_pure_sum[0][i] += int(r[2][i])
-            all_sum[0][i] += int(r[2][i])
+            all_pure_sum[0][i] -= int(r[2][i])
+            all_sum[0][i] -= int(r[2][i])
         income_data_sum[1] += int(r[3])
-        all_pure_sum[1] += int(r[3])
-        all_sum[1] += int(r[3])
+        all_pure_sum[1] -= int(r[3])
+        all_sum[1] -= int(r[3])
 
     for r in outgoing_data:
         for i in range(12):
             outgoing_data_sum[0][i] += int(r[2][i])
-            all_pure_sum[0][i] += int(r[2][i])
-            all_sum[0][i] += int(r[2][i])
+            all_pure_sum[0][i] -= int(r[2][i])
+            all_sum[0][i] -= int(r[2][i])
         outgoing_data_sum[1] += int(r[3])
-        all_pure_sum[1] += int(r[3])
-        all_sum[1] += int(r[3])
+        all_pure_sum[1] -= int(r[3])
+        all_sum[1] -= int(r[3])
 
     for r in saving_data:
         for i in range(12):
             saving_data_sum[0][i] += int(r[2][i])
-            all_pure_sum[0][i] += int(r[2][i])
+            all_pure_sum[0][i] -= int(r[2][i])
         saving_data_sum[1] += int(r[3])
-        all_pure_sum[1] += int(r[3])
+        all_pure_sum[1] -= int(r[3])
 
     for r in invest_data:
         for i in range(12):
             invest_data_sum[0][i] += int(r[2][i])
-            all_pure_sum[0][i] += int(r[2][i])
+            all_pure_sum[0][i] -= int(r[2][i])
         invest_data_sum[1] += int(r[3])
-        all_pure_sum[1] += int(r[3])
+        all_pure_sum[1] -= int(r[3])
 
     return (
         income_data_sum,

@@ -12,6 +12,59 @@
     <body>
         <h1>mawinter-web</h1>
         <h3>今年度のサマリ</h3>
+
+        <h4>合計</h4>
+        <table class="summary_table" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>カテゴリ名</th>
+                    <th>4月</th>
+                    <th>5月</th>
+                    <th>6月</th>
+                    <th>7月</th>
+                    <th>8月</th>
+                    <th>9月</th>
+                    <th>10月</th>
+                    <th>11月</th>
+                    <th>12月</th>
+                    <th>1月</th>
+                    <th>2月</th>
+                    <th>3月</th>
+                    <th>合計</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        収入・支出
+                    </td>
+                    {%- for price in all_pure_sum[0] %}
+                    <td class="price_value_field">{{ price }}</td>
+                    {%- endfor %}
+                    <td class="price_value_field">{{ all_pure_sum[1] }}</td>
+                </tr>
+
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        （貯金投資調整後）
+                    </td>
+                    {%- for price in all_sum[0] %}
+                    <td class="price_value_field">{{ price }}</td>
+                    {%- endfor %}
+                    <td class="price_value_field">{{ all_sum[1] }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <hr>
+
         <h4>収入</h4>
         <table class="summary_table" border="1">
             <thead>
