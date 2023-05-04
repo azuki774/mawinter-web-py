@@ -157,16 +157,16 @@ def _sum_category(income_data, outgoing_data, saving_data, invest_data):
     saving_data_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]
     invest_data_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]
     all_pure_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]  # 純粋の額
-    all_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]  # 貯金等調整後の額
+    all_sum = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0]  # 貯金投資調整後の額
 
     for r in income_data:
         for i in range(12):
             income_data_sum[0][i] += int(r[2][i])
-            all_pure_sum[0][i] -= int(r[2][i])
-            all_sum[0][i] -= int(r[2][i])
+            all_pure_sum[0][i] += int(r[2][i])
+            all_sum[0][i] += int(r[2][i])
         income_data_sum[1] += int(r[3])
-        all_pure_sum[1] -= int(r[3])
-        all_sum[1] -= int(r[3])
+        all_pure_sum[1] += int(r[3])
+        all_sum[1] += int(r[3])
 
     for r in outgoing_data:
         for i in range(12):
@@ -180,16 +180,16 @@ def _sum_category(income_data, outgoing_data, saving_data, invest_data):
     for r in saving_data:
         for i in range(12):
             saving_data_sum[0][i] += int(r[2][i])
-            all_pure_sum[0][i] -= int(r[2][i])
+            all_sum[0][i] -= int(r[2][i])
         saving_data_sum[1] += int(r[3])
-        all_pure_sum[1] -= int(r[3])
+        all_sum[1] -= int(r[3])
 
     for r in invest_data:
         for i in range(12):
             invest_data_sum[0][i] += int(r[2][i])
-            all_pure_sum[0][i] -= int(r[2][i])
+            all_sum[0][i] -= int(r[2][i])
         invest_data_sum[1] += int(r[3])
-        all_pure_sum[1] -= int(r[3])
+        all_sum[1] -= int(r[3])
 
     return (
         income_data_sum,
