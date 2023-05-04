@@ -77,7 +77,11 @@ def index_post():
 
 @app.route("/summary", methods=["GET"])
 def summary_get():
-    income_data, outgoing_data, saving_data, invest_data = _extract_summary_data(None)
+    fyyear = "2023"
+    summary_json = api.get_summary(fyyear)
+    income_data, outgoing_data, saving_data, invest_data = _extract_summary_data(
+        summary_json
+    )
     return render_template(
         "summary.html",
         income_data=income_data,
@@ -104,16 +108,13 @@ def _extract_post_data(request):
     return post_category_id, post_price
 
 
-def _extract_summary_data(request):
-    res = '[{"category_id":100,"category_name":"月給","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":101,"category_name":"ボーナス","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":110,"category_name":"雑所得","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":200,"category_name":"家賃","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":210,"category_name":"食費","count":2,"price":[0,1567,0,0,0,0,0,0,0,0,0,0],"total":1567},{"category_id":220,"category_name":"電気代","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":221,"category_name":"ガス代","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":222,"category_name":"水道費","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":230,"category_name":"コンピュータリソース","count":2,"price":[0,268,0,0,0,0,0,0,0,0,0,0],"total":268},{"category_id":231,"category_name":"通信費","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":240,"category_name":"生活用品","count":1,"price":[0,4444,0,0,0,0,0,0,0,0,0,0],"total":4444},{"category_id":250,"category_name":"娯楽費","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":251,"category_name":"交遊費","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":260,"category_name":"書籍・勉強","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":270,"category_name":"交通費","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":280,"category_name":"衣服等費","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":300,"category_name":"保険・税金","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":400,"category_name":"医療・衛生","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":500,"category_name":"雑費","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":600,"category_name":"家賃用貯金","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":601,"category_name":"PC用貯金","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":700,"category_name":"NISA入出金","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0},{"category_id":701,"category_name":"NISA変動","count":0,"price":[0,0,0,0,0,0,0,0,0,0,0,0],"total":0}]'
+def _extract_summary_data(summary_json):
     income_data = []
     outgoing_data = []
     saving_data = []
     invest_data = []
 
-    # resjson = res.json()
-    resjson = json.loads(res)
-    for r in resjson:
+    for r in summary_json:
         cat_id = r["category_id"]
         cat_name = r["category_name"]
         price = r["price"]

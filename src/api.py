@@ -118,3 +118,21 @@ def post_record(category_id, price):
 
     logger.info("post ok")
     return 0
+
+
+def get_summary(fyyear):
+    logger.info("get summary called")
+    url = BASE_URL + "/v2/record/summary/" + fyyear
+    try:
+        response = requests.get(
+            url,
+            auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS),
+        )
+    except Exception as e:
+        logger.error(e)
+        return None
+
+    print(response)
+    summary_json = response.json()
+    logger.info("get summary ok")
+    return summary_json
