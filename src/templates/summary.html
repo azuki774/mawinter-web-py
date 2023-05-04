@@ -34,16 +34,6 @@
                 </tr>
             </thead>
             <tbody>
-                {% for cat_id, cat_name, prices, total in summary_data %}
-                <tr>
-                    <td>{{ cat_id }}</td>
-                    <td>{{ cat_name }}</td>
-                    {%- for i in range( array|length) %}
-                    <td>{{ prices[i] }}</td>
-                    {%- endfor %}
-                    <td>{{ total }}</td>
-                </tr>
-                {% endfor %}
             </tbody>
         </table>
 
@@ -69,6 +59,16 @@
                 </tr>
             </thead>
             <tbody>
+                {% for cat_id, cat_name, prices, total in summary_data %}
+                <tr>
+                    <td>{{ cat_id }}</td>
+                    <td>{{ cat_name }}</td>
+                    {%- for price in prices %}
+                    <td>{{ price }}</td>
+                    {%- endfor %}
+                    <td>{{ total }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
         <hr>

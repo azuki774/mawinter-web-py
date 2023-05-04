@@ -76,11 +76,16 @@ def index_post():
 
 @app.route("/summary", methods=["GET"])
 def summary_get():
+    cat_ids = [200];
+    cat_names = ['テスト']
+    pricess = [[4,5,6,7,8,9,10,11,12,1,2,3]]
+    totals = [300]
     return render_template(
         "summary.html",
+        summary_data = zip(cat_ids, cat_names, pricess, totals)
     )
 
-
+# _extract_post_data は request をもとに、record を POSTするための整形処理
 def _extract_post_data(request):
     post_category = request.form.getlist("category_selector")
 
