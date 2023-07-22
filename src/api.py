@@ -7,7 +7,6 @@ import logging
 
 t_delta = datetime.timedelta(hours=9)
 JST = datetime.timezone(t_delta, "JST")
-now = datetime.datetime.now(JST)
 
 BASE_URL = str(os.getenv("BASE_URL", "http://192.168.1.21:8080"))
 BASIC_AUTH_USER = str(os.getenv("BASIC_AUTH_USER", ""))
@@ -52,6 +51,7 @@ def getRecent():
     dates = []
 
     # yyyymm = "200007"  # test
+    now = datetime.datetime.now(JST)
     yyyymm = now.strftime("%Y%m")
     url = BASE_URL + "/v2/record/" + yyyymm + "/recent"
     try:
