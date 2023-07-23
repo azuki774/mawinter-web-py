@@ -7,7 +7,6 @@ import logging
 
 t_delta = datetime.timedelta(hours=9)
 JST = datetime.timezone(t_delta, "JST")
-now = datetime.datetime.now(JST)
 
 BASE_URL = str(os.getenv("BASE_URL", "http://192.168.1.21:8080"))
 BASIC_AUTH_USER = str(os.getenv("BASIC_AUTH_USER", ""))
@@ -50,8 +49,10 @@ def getRecent():
     cat_names = []
     prices = []
     dates = []
+    memos = []
 
     # yyyymm = "200007"  # test
+    now = datetime.datetime.now(JST)
     yyyymm = now.strftime("%Y%m")
     url = BASE_URL + "/v2/record/" + yyyymm + "/recent"
     try:
@@ -79,8 +80,9 @@ def getRecent():
         cat_names.append(jdata["category_name"])
         prices.append(jdata["price"])
         dates.append(jdata["datetime"])
+        memos.append(jdata["memo"])
 
-    return ids, cat_names, prices, dates
+    return ids, cat_names, prices, dates, memos
 
 
 def post_record(category_id, price):
