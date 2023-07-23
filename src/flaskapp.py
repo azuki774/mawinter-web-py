@@ -50,12 +50,12 @@ cat_opts = [
 @app.route("/", methods=["GET"])
 def index_get():
     resultMessage = "入力してください"
-    ids, cat_names, prices, dates = api.getRecent()
+    ids, cat_names, prices, dates, memos = api.getRecent()
     return render_template(
         "index.html",
         connectionMessage=ver_info_text,
         resultMessage=resultMessage,
-        recent_data=zip(ids, cat_names, prices, dates),
+        recent_data=zip(ids, cat_names, prices, dates, memos),
         cat_opts=cat_opts,
     )
 
@@ -77,7 +77,7 @@ def index_post():
 
 @app.route("/summary", methods=["GET"])
 def summary_get():
-    fyyear = "2023"
+    fyyear = "2023" # TODO: 変数化
     summary_json = api.get_summary(fyyear)
     income_data, outgoing_data, saving_data, invest_data = _separate_summary_data(
         summary_json

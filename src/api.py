@@ -49,6 +49,7 @@ def getRecent():
     cat_names = []
     prices = []
     dates = []
+    memos = []
 
     # yyyymm = "200007"  # test
     now = datetime.datetime.now(JST)
@@ -79,8 +80,9 @@ def getRecent():
         cat_names.append(jdata["category_name"])
         prices.append(jdata["price"])
         dates.append(jdata["datetime"])
+        memos.append(jdata["memo"])
 
-    return ids, cat_names, prices, dates
+    return ids, cat_names, prices, dates, memos
 
 
 def post_record(category_id, price):

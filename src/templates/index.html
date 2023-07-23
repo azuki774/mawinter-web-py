@@ -41,15 +41,17 @@
                     <th>カテゴリ名</th>
                     <th>金額</th>
                     <th>日付</th>
+                    <th>メモ</th>
                 </tr>
             </thead>
             <tbody>
-                {% for id, cat_name, price, date in recent_data %}
+                {% for id, cat_name, price, date, memo in recent_data %}
                 <tr>
                     <td>{{ id }}</td>
                     <td>{{ cat_name }}</td>
                     <td>{{ price }}</td>
                     <td>{{ date }}</td>
+                    <td>{{ memo }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
