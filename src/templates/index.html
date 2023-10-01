@@ -17,7 +17,7 @@
 
         <form action="/post" method="post">
             <div>
-                <select class="category_selector" name="category_selector">
+                <select class="category_selector form-select" name="category_selector">
                     {% for cat_opt in cat_opts %}
                     <tr>
                         <option>{{ cat_opt }}</option>
@@ -26,18 +26,21 @@
                 </select>
 
                 <p>
-                    <input class="pricebox" name="pricebox" type="number" placeholder="price">
+                    <input class="pricebox input-group mb-3" name="pricebox" type="number" placeholder="price">
                 </p>
 
                 <p>
-                    <button class="sendbutton" type="submit">Post</button>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="sendbutton btn btn-primary" type="submit">Post</button>
+                </div>
                 </p>
+
             </div>
         </form>
 
         <p>{{ resultMessage }}</p>
         <h3>今月の直近履歴</h3>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
