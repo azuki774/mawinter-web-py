@@ -10,62 +10,58 @@
     </head>
 
     <body class="text-center">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
+
         <h1>mawinter-web</h1>
-
-        <form action="/post" method="post">
-            <div>
-                <select class="category_selector form-select" name="category_selector">
-                    {% for cat_opt in cat_opts %}
-                    <tr>
-                        <option>{{ cat_opt }}</option>
-                    </tr>
-                    {% endfor %}
-                </select>
-
-                <p>
-                    <input class="pricebox input-group mb-3" name="pricebox" type="number" placeholder="price">
-                </p>
-
-                <p>
-                <div class="d-grid gap-2 col-6 mx-auto">
+        <div class="container w-75">
+            <form action="/post" method="post">
+                <div class="input-group">
+                    <select class="category_selector form-select" name="category_selector">
+                        {% for cat_opt in cat_opts %}
+                        <tr>
+                            <option>{{ cat_opt }}</option>
+                        </tr>
+                        {% endfor %}
+                    </select>
                     <button class="sendbutton btn btn-primary" type="submit">Post</button>
                 </div>
-                </p>
+                <div>
+                    <input class="pricebox input-group mt-2" name="pricebox" type="number" placeholder="price">
+                </div>
+            </form>
 
-            </div>
-        </form>
+            <p>{{ resultMessage }}</p>
+            <h3>今月の直近履歴</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>カテゴリ名</th>
+                        <th>金額</th>
+                        <th>日付</th>
+                        <th>メモ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for id, cat_name, price, date, memo in recent_data %}
+                    <tr>
+                        <td>{{ id }}</td>
+                        <td>{{ cat_name }}</td>
+                        <td>{{ price }}</td>
+                        <td>{{ date }}</td>
+                        <td>{{ memo }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+            <input type="button" class="sendbutton" onclick="location.href='./summary'" value="年次サマリを表示">
+            <hr>
+            <p>{{ connectionMessage }}</p>
+        </div>
 
-        <p>{{ resultMessage }}</p>
-        <h3>今月の直近履歴</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>カテゴリ名</th>
-                    <th>金額</th>
-                    <th>日付</th>
-                    <th>メモ</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for id, cat_name, price, date, memo in recent_data %}
-                <tr>
-                    <td>{{ id }}</td>
-                    <td>{{ cat_name }}</td>
-                    <td>{{ price }}</td>
-                    <td>{{ date }}</td>
-                    <td>{{ memo }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <hr>
-        <input type="button" class="sendbutton" onclick="location.href='./summary'" value="年次サマリを表示">
-        <hr>
-        <p>{{ connectionMessage }}</p>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+            </script>
     </body>
 
 </div>
