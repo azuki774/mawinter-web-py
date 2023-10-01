@@ -13,22 +13,26 @@
 
         <h1>mawinter-web</h1>
         <div class="container w-75">
-            <form action="/post" method="post">
-                <div class="input-group">
-                    <select class="category_selector form-select" name="category_selector">
-                        {% for cat_opt in cat_opts %}
-                        <tr>
-                            <option>{{ cat_opt }}</option>
-                        </tr>
-                        {% endfor %}
-                    </select>
-                    <button class="sendbutton btn btn-primary" type="submit">Post</button>
-                </div>
-                <div>
-                    <input class="pricebox input-group mt-2" name="pricebox" type="number" placeholder="price">
-                </div>
-            </form>
-
+            <h3>レコード登録</h3>
+            <div class="container w-75">
+                <form action="/post" method="post" class="row">
+                    <div class="col">
+                        <select class="category_selector form-select" name="category_selector">
+                            {% for cat_opt in cat_opts %}
+                            <tr>
+                                <option>{{ cat_opt }}</option>
+                            </tr>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input class="pricebox" name="pricebox" type="number" placeholder="price" aria-label="price">
+                    </div>
+                    <div class="col">
+                        <button class="sendbutton btn btn-primary" type="submit">Post</button>
+                    </div>
+                </form>
+            </div>
             <p>{{ resultMessage }}</p>
             <h3>今月の直近履歴</h3>
             <table class="table">
