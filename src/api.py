@@ -8,7 +8,7 @@ import logging
 t_delta = datetime.timedelta(hours=9)
 JST = datetime.timezone(t_delta, "JST")
 
-BASE_URL = str(os.getenv("BASE_URL", "http://192.168.1.21:8080"))
+BASE_URL = str(os.getenv("BASE_URL", "http://172.19.250.172:8080"))
 BASIC_AUTH_USER = str(os.getenv("BASIC_AUTH_USER", ""))
 BASIC_AUTH_PASS = str(os.getenv("BASIC_AUTH_PASS", ""))
 
