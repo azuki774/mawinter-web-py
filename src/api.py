@@ -44,6 +44,11 @@ def getVersion():
     )
 
 
+def _getDatetime(datetime):
+    # 2023-10-02T21:26:54+09:00 -> 2023-10-02
+    return datetime[:10]
+
+
 def getRecent():
     ids = []
     cat_names = []
@@ -79,7 +84,7 @@ def getRecent():
         ids.append(jdata["id"])
         cat_names.append(jdata["category_name"])
         prices.append(jdata["price"])
-        dates.append(jdata["datetime"])
+        dates.append(_getDatetime(jdata["datetime"]))
         memos.append(jdata["memo"])
 
     return ids, cat_names, prices, dates, memos
