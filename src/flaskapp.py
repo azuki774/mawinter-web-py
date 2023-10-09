@@ -77,7 +77,7 @@ def index_post():
 
 @app.route("/summary", methods=["GET"])
 def summary_get():
-    fyyear = "2023" # TODO: 変数化
+    fyyear = "2023"  # TODO: 変数化
     summary_json = api.get_summary(fyyear)
     income_data, outgoing_data, saving_data, invest_data = _separate_summary_data(
         summary_json
@@ -91,19 +91,19 @@ def summary_get():
         all_pure_sum,
         all_sum,
     ) = _sum_category(income_data, outgoing_data, saving_data, invest_data)
-
+    print(income_data)
     return render_template(
         "summary.html",
-        income_data=income_data,
-        outgoing_data=outgoing_data,
-        saving_data=saving_data,
-        invest_data=invest_data,
-        income_data_sum=income_data_sum,
-        outgoing_data_sum=outgoing_data_sum,
-        saving_data_sum=saving_data_sum,
-        invest_data_sum=invest_data_sum,
-        all_pure_sum=all_pure_sum,
-        all_sum=all_sum,
+        income_data=_category_reshape(income_data),
+        outgoing_data=_category_reshape(outgoing_data),
+        saving_data=_category_reshape(saving_data),
+        invest_data=_category_reshape(invest_data),
+        income_data_sum=_sum_category_reshape(income_data_sum),
+        outgoing_data_sum=_sum_category_reshape(outgoing_data_sum),
+        saving_data_sum=_sum_category_reshape(saving_data_sum),
+        invest_data_sum=_sum_category_reshape(invest_data_sum),
+        all_pure_sum=_sum_category_reshape(all_pure_sum),
+        all_sum=_sum_category_reshape(all_sum),
     )
 
 
@@ -146,6 +146,26 @@ def _separate_summary_data(summary_json):
             outgoing_data.append([cat_id, cat_name, price, total])
 
     return income_data, outgoing_data, saving_data, invest_data
+
+
+def _category_reshape(categories):
+    # input: [[100, '月給', [10000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20000], 30000]
+    # output: [[100, '月給', ['10,000', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '20,000'], '30,000']
+    for category in categories:
+        for i in range(12):
+            category[2][i] = "{:,}".format(category[2][i])
+        category[3] = "{:,}".format(category[3])
+    return categories
+
+
+def _sum_category_reshape(category_sum):
+    # ex.
+    # input [[1000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10000], 11000]
+    # output: [['1,000', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '10,000'], '11,000']
+    for i in range(12):
+        category_sum[0][i] = "{:,}".format(category_sum[0][i])
+    category_sum[1] = "{:,}".format(category_sum[1])
+    return category_sum
 
 
 def _sum_category(income_data, outgoing_data, saving_data, invest_data):
