@@ -59,7 +59,7 @@ def getRecent():
     # yyyymm = "200007"  # test
     now = datetime.datetime.now(JST)
     yyyymm = now.strftime("%Y%m")
-    url = BASE_URL + "/v2/record/" + yyyymm + "/recent"
+    url = BASE_URL + "/v2/record?num=10"
     try:
         response = requests.get(
             url, auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS)
