@@ -18,8 +18,6 @@ logger.addHandler(h)
 
 app = Flask(__name__)
 
-# GET API VERSION
-ver_info_text = api.getVersion()
 
 cat_opts = [
     "210 - 食費",
@@ -49,6 +47,8 @@ cat_opts = [
 
 @app.route("/", methods=["GET"])
 def index_get():
+    # GET API VERSION
+    ver_info_text = api.getVersion()
     resultMessage = "入力してください"
     ids, cat_names, prices, dates, memos = api.getRecent()
     return render_template(
