@@ -18,8 +18,6 @@ logger.addHandler(h)
 
 app = Flask(__name__)
 
-# GET API VERSION
-ver_info_text = api.getVersion()
 
 cat_opts = [
     "210 - 食費",
@@ -49,6 +47,8 @@ cat_opts = [
 
 @app.route("/", methods=["GET"])
 def index_get():
+    # GET API VERSION
+    ver_info_text = api.getVersion()
     resultMessage = "入力してください"
     ids, cat_names, prices, dates, memos = api.getRecent()
     return render_template(
@@ -77,7 +77,7 @@ def index_post():
 
 @app.route("/summary", methods=["GET"])
 def summary_get():
-    fyyear = "2023"  # TODO: 変数化
+    fyyear = "2024"  # TODO: 変数化
     summary_json = api.get_summary(fyyear)
     income_data, outgoing_data, saving_data, invest_data = _separate_summary_data(
         summary_json
