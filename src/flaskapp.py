@@ -77,7 +77,7 @@ def index_post():
 
 @app.route("/summary", methods=["GET"])
 def summary_get():
-    fyyear = "2023"  # TODO: 変数化
+    fyyear = "2024"  # TODO: 変数化
     summary_json = api.get_summary(fyyear)
     income_data, outgoing_data, saving_data, invest_data = _separate_summary_data(
         summary_json
