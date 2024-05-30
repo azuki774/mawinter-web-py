@@ -66,19 +66,19 @@ def getRecent():
         )
         if response.status_code != 200:
             logger.warn(response.status_code)
-            return [], [], [], []
+            return [], [], [], [], []
 
         # ok pattern
         json_data = response.json()
     except Exception as e:
         logger.error(e)
-        return ids, cat_names, prices, dates
+        return ids, cat_names, prices, dates, memos
 
     # reshape
     logger.info("recent fetch ok")
 
     if json_data == None:
-        return [], [], [], []
+        return [], [], [], [], []
 
     for jdata in json_data:
         ids.append(jdata["id"])
