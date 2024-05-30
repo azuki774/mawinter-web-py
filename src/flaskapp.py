@@ -57,6 +57,7 @@ def index_get():
         resultMessage=resultMessage,
         recent_data=zip(ids, cat_names, prices, dates, memos),
         cat_opts=cat_opts,
+        his_indexes=[1,2,3], # TODO
     )
 
 
