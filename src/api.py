@@ -49,7 +49,7 @@ def _getDatetime(datetime):
     return datetime[:10]
 
 
-def getRecent():
+def getRecent(size, offset):
     ids = []
     cat_names = []
     prices = []
@@ -59,7 +59,8 @@ def getRecent():
     # yyyymm = "200007"  # test
     now = datetime.datetime.now(JST)
     yyyymm = now.strftime("%Y%m")
-    url = BASE_URL + "/v2/record?num=10"
+    url = f"{BASE_URL}/v2/record?num={size}&offset={offset}"
+    logger.info(f"called: {url}")
     try:
         response = requests.get(
             url, auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS)

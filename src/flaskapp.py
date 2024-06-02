@@ -50,7 +50,20 @@ def index_get():
     # GET API VERSION
     ver_info_text = api.getVersion()
     resultMessage = "入力してください"
-    ids, cat_names, prices, dates, memos = api.getRecent()
+
+    # recent取得のためのoffset計算
+    req_param = request.args.to_dict()
+    his_page = req_param.get('his_page', 1) # 何も指定されなかったら1ページ目を表示
+
+    try:
+        his_page = int(his_page) # str -> int
+    except:
+        his_page = 1 # 不正な文字列であれば1扱いにする
+
+    one_page_size = 10 # 1ページのサイズ
+    recent_offset = one_page_size * (his_page - 1)
+
+    ids, cat_names, prices, dates, memos = api.getRecent(one_page_size, recent_offset)
     return render_template(
         "index.html",
         connectionMessage=ver_info_text,

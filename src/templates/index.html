@@ -79,13 +79,19 @@
             </script>
 
         <script>
+            let url = new URL(window.location.href);
             var select = document.getElementById("history_selector");
             document.addEventListener('DOMContentLoaded', function () {
-                select.selectedIndex = 2;
+                let his_page = url.searchParams.get("his_page");
+                if (his_page == null) {
+                    his_page = 1
+                }
+                select.selectedIndex = his_page - 1; // index なので 1 ずらす
             });
 
             select.addEventListener("change", function () {
-                alert("nanka kawatta");
+                let his_page = select.value;
+                window.location.href = '?his_page=' + his_page;
             });
 
         </script>
