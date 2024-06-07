@@ -49,7 +49,7 @@ def _getDatetime(datetime):
     return datetime[:10]
 
 
-def getRecent():
+def getRecent(size, offset):
     ids = []
     cat_names = []
     prices = []
@@ -59,26 +59,27 @@ def getRecent():
     # yyyymm = "200007"  # test
     now = datetime.datetime.now(JST)
     yyyymm = now.strftime("%Y%m")
-    url = BASE_URL + "/v2/record?num=10"
+    url = f"{BASE_URL}/v2/record?num={size}&offset={offset}"
+    logger.info(f"called: {url}")
     try:
         response = requests.get(
             url, auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS)
         )
         if response.status_code != 200:
             logger.warn(response.status_code)
-            return [], [], [], []
+            return [], [], [], [], []
 
         # ok pattern
         json_data = response.json()
     except Exception as e:
         logger.error(e)
-        return ids, cat_names, prices, dates
+        return ids, cat_names, prices, dates, memos
 
     # reshape
     logger.info("recent fetch ok")
 
     if json_data == None:
-        return [], [], [], []
+        return [], [], [], [], []
 
     for jdata in json_data:
         ids.append(jdata["id"])
@@ -139,3 +140,20 @@ def get_summary(fyyear):
     summary_json = response.json()
     logger.info("get summary ok")
     return summary_json
+
+def get_pagenum(one_page_size):
+    url_count = BASE_URL + "/v2/record/count"
+    try:
+        response = requests.get(
+            url_count,
+            auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS),
+        )
+    except Exception as e:
+        logger.error(e)
+        return None
+    count_json = response.json()
+    count = count_json['num'] # 全件数
+    
+    # 切り上げ
+    page_num = (count + one_page_size - 1) // one_page_size
+    return page_num
