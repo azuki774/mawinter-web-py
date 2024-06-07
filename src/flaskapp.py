@@ -64,13 +64,15 @@ def index_get():
     recent_offset = one_page_size * (his_page - 1)
 
     ids, cat_names, prices, dates, memos = api.getRecent(one_page_size, recent_offset)
+
+    page_num = api.get_pagenum(one_page_size) # ページネーションのためのページ数計算
     return render_template(
         "index.html",
         connectionMessage=ver_info_text,
         resultMessage=resultMessage,
         recent_data=zip(ids, cat_names, prices, dates, memos),
         cat_opts=cat_opts,
-        his_indexes=[1,2,3], # TODO
+        his_indexes=list(range(1, page_num + 1, 1)) # [1, ... , page_num ]
     )
 
 

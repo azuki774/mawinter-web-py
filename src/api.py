@@ -140,3 +140,20 @@ def get_summary(fyyear):
     summary_json = response.json()
     logger.info("get summary ok")
     return summary_json
+
+def get_pagenum(one_page_size):
+    url_count = BASE_URL + "/v2/record/count"
+    try:
+        response = requests.get(
+            url_count,
+            auth=HTTPBasicAuth(BASIC_AUTH_USER, BASIC_AUTH_PASS),
+        )
+    except Exception as e:
+        logger.error(e)
+        return None
+    count_json = response.json()
+    count = count_json['num'] # 全件数
+    
+    # 切り上げ
+    page_num = (count + one_page_size - 1) // one_page_size
+    return page_num
