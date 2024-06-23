@@ -126,7 +126,7 @@ def summary_get():
 # _extract_post_data は request をもとに、record を POSTするための整形処理
 def _extract_post_data(request):
     post_category = request.form.getlist("category_selector")
-    logger.debug('post category: ' + str(post_category[0]))
+    logger.info('try post category: ' + str(post_category[0]))
     try:
         post_category_id = int(post_category[0][:3])
         post_price = int(request.form.get("pricebox"))
