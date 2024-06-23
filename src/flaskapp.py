@@ -82,7 +82,8 @@ def index_post():
         return redirect(url_for("index.html"))
 
     # post 処理
-    post_category_id, post_price = _extract_post_data(request=request)
+    post_category = request.form.getlist("category_selector")
+    post_category_id, post_price = _extract_post_data(post_category)
     if post_price != 0:
         ret = api.post_record(post_category_id, post_price)
 
@@ -124,9 +125,7 @@ def summary_get():
 
 
 # _extract_post_data は request をもとに、record を POSTするための整形処理
-def _extract_post_data(request):
-    post_category = request.form.getlist("category_selector")
-    logger.info('try post category: ' + post_category)
+def _extract_post_data(post_category):
     try:
         post_category_id = int(post_category[0][:3])
         post_price = int(request.form.get("pricebox"))
