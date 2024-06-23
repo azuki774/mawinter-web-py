@@ -82,6 +82,7 @@ def index_post():
         return redirect(url_for("index.html"))
 
     # post 処理
+    print(request.form.getlist("category_selector"))
     post_category = request.form.getlist("category_selector")
     post_category_id, post_price = _extract_post_data(post_category)
     if post_price != 0:
